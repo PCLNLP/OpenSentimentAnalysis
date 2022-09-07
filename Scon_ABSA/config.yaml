@@ -1,0 +1,10 @@
+# bert: bert_dim, polarities_dim, dropout
+# input_columns: 'text_bert_indices', 'text_indices', 'aspect_indices', 'bert_segments_indices', 'left_indices', 'sdat_graph'
+bert_dim: 768
+polarities_dim: 3
+dropout: 0.9
+input_columns:
+  - concat_bert_indices
+  - concat_segments_indices
+initializer: xavier_normal
+pretrained_bert_name: bert-base-uncased
