@@ -1,0 +1,14 @@
+# bert: hidden_dim, polarities_dim, dropout
+# bert: embed_dim, hidden_dim, polarities_dim, num_layers, batch_first, bidirectional, dropout
+# input_columns: 'text_bert_indices', 'text_indices', 'aspect_indices', 'bert_segments_indices', 'left_indices', 'sdat_graph'
+hidden_dim: 768
+polarities_dim: 3
+dropout: 0.7
+input_columns:
+  - text_bert_indices
+  - bert_segments_indices
+  - sdat_graph
+  - weight
+  - mask
+initializer: xavier_normal
+pretrained_bert_name: bert-base-uncased
