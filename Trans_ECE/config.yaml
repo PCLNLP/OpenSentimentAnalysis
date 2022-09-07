@@ -1,0 +1,16 @@
+pretrained_bert_name: bert-base-chinese
+is_bi: True
+bert_output_size: 768
+mlp_size: 256
+cell_size: 128
+operation_type: concatenate
+scale_factor: 2
+dropout: 0.5
+layers: 1
+max_document_len: 100
+position_ebd_dim: 128
+position_trainable: False
+action_ebd_dim: 128
+action_type_num: 7
+action_trainable: False
+label_num: 5
