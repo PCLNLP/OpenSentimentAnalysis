@@ -1,0 +1,12 @@
+hidden_dim: 768
+polarities_dim: 3
+dropout: 0.7
+input_columns:
+  - concat_bert_indices
+  - concat_segments_indices
+  - dependency_graph
+  - aspect_graph
+  - weight
+  - mask
+initializer: xavier_normal
+pretrained_bert_name: bert-base-uncased
