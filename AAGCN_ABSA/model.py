@@ -67,7 +67,7 @@ class GraphConvolution(nn.Cell):
 class AAGCN(nn.Cell):
     def __init__(self, embedding_matrix):
         super(AAGCN, self).__init__()
-        with open('AAGCN_ABSA/config.yaml', 'r') as f:
+        with open('/code/AAGCN_ABSA/config.yaml', 'r') as f:
             self.cfg = yaml.load(f, Loader=yaml.FullLoader)
         self.embed = Embedding.from_pretrained_embedding(
             Tensor(embedding_matrix, dtype=mindspore.float32))

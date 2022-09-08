@@ -228,7 +228,7 @@ class Intergcn(nn.Cell):
 class Model(nn.Cell):
     def __init__(self):
         super(Model, self).__init__()
-        with open('InterGCNBERT_ABSA/config.yaml', 'r') as f:
+        with open('/code/InterGCNBERT_ABSA/config.yaml', 'r') as f:
             self.cfg = yaml.load(f, Loader=yaml.FullLoader)
 
         self.bert = BertModel.load(self.cfg['pretrained_bert_name'])

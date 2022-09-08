@@ -37,7 +37,7 @@ class Dense(nn.Dense):
 class BERT_SPC_CL(nn.Cell):
     def __init__(self):
         super(BERT_SPC_CL, self).__init__()
-        with open('SentimentAnalysisNLP/Scon_ABSA/config.yaml', 'r') as f:
+        with open('/code/Scon_ABSA/config.yaml', 'r') as f:
             self.cfg = yaml.load(f, Loader=yaml.FullLoader)
         self.bert = BertModel.load(self.cfg['pretrained_bert_name'])
         self.dropout = nn.Dropout(self.cfg['dropout'])

@@ -276,7 +276,7 @@ class Model(nn.Cell):
 
     def __init__(self):
         super().__init__()
-        with open('MTST_ECE/config.yaml', 'r') as f:
+        with open('/code/MTST_ECE/config.yaml', 'r') as f:
             self.cfg = yaml.load(f, Loader=yaml.FullLoader)
         self.base_encoder = BertEncoder(self.cfg['pretrained_bert_name'])
         self.sl_model = SLModel(self.cfg)
