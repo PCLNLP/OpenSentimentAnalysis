@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 import numpy
 import time
 from collections import namedtuple
+from pathlib import Path
 
 import mindspore
 import mindspore.nn as nn
@@ -22,9 +22,9 @@ class EvalCallBack(Callback):
         self.eval_engine = EvalEngine(net)
         self.val_dataset = val_dataset
         self.test_dataset = test_dataset
-        self.save_ckpt_path = self.opt.data_dir / 'checkpoints' / self.opt.dataset / 'best_eval.ckpt'
-        if not self.save_ckpt_path.exists():
-            self.save_ckpt_path.mkdir(parents=True, exist_ok=True)
+        self.ckpt_parent = Path(self.opt.save_ckpt_path).parent
+        if not self.ckpt_parent.exists():
+            self.ckpt_parent.mkdir(parents=True, exist_ok=True)
 
         self.best_step = 0
         self.best_model_acc = 0
@@ -32,11 +32,11 @@ class EvalCallBack(Callback):
         self.sum_step_spend = 0
 
     def val_best_model(self):
-        self.eval_engine.update_wight(str(self.save_ckpt_path))
+        self.eval_engine.update_wight(str(self.opt.save_ckpt_path))
         val_acc, val_f1 = self.eval_engine.eval(self.test_dataset)
         print('>>> seed : {}, algo: {}, dataset: {}'.format(
             self.opt.seed, self.opt.algo, self.opt.dataset))
-        print('>>> save: {}'.format(self.save_ckpt_path))
+        print('>>> save: {}'.format(self.opt.save_ckpt_path))
         print('>>> VAL  best_model_acc: {:4f}, best_model_f1: {:4f} best_step: {}'.format(
             self.best_model_acc * 100, self.best_model_f1 * 100, self.best_step))
         print('>>> TEST best_model_acc: {:4f}, best_model_f1: {:4f} best_step: {}'.format(
@@ -82,7 +82,7 @@ class EvalCallBack(Callback):
                 self.best_model_f1 = val_f1
                 ops = '+SAVE'
                 self.best_step = cb_params.cur_step_num
-                save_checkpoint(cb_params.train_network, str(self.save_ckpt_path))
+                save_checkpoint(cb_params.train_network, self.opt.save_ckpt_path)
             print('loss: {:.4f}, val_acc: {:.4f}, val_f1: {:.4f}, spend: {:.4f}, {}'.format(
                 self.loss, val_acc, val_f1, self.sum_step_spend / self.opt.log_step, ops), flush=True)
             self.sum_step_spend = 0

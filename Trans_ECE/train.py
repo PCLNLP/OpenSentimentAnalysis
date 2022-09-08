@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import mindspore
 import mindspore.nn as nn
 import mindspore.ops as ops
@@ -44,9 +46,9 @@ class Instructor:
                                   t_total=train_iter_len * opt.num_epochs)
         self.loss_fn = nn.SoftmaxCrossEntropyWithLogits(reduction='mean', sparse=True)
         self.tokenizer = BertTokenizer.load(opt.bert_tokenizer)
-        self.save_ckpt_path = self.opt.data_dir / 'checkpoints' / self.opt.dataset / 'best_eval.ckpt'
-        if not self.save_ckpt_path.exists():
-            self.save_ckpt_path.mkdir(parents=True, exist_ok=True)
+        self.ckpt_parent = Path(self.opt.save_ckpt_path).parent
+        if not self.ckpt_parent.exists():
+            self.ckpt_parent.mkdir(parents=True, exist_ok=True)
 
     def train(self):
         total_batch, early_stop = 0, 0
@@ -78,10 +80,10 @@ class Instructor:
                         best_batch = total_batch
                         print('*' * 50 + 'the performance in valid set...' + '*' * 50)
                         PrintMsg(total_batch, valid_emo_metric, valid_cse_metric, valid_pr_metric)
-                        mindspore.save_checkpoint(self.net, self.save_ckpt_path)
+                        mindspore.save_checkpoint(self.net, self.opt.save_ckpt_path)
             early_stop += 1
             if early_stop >= self.opt.patience or i_epoch == self.opt.num_epochs - 1:
-                mindspore.load_param_into_net(self.net, mindspore.load_checkpoint(self.save_ckpt_path))
+                mindspore.load_param_into_net(self.net, mindspore.load_checkpoint(self.opt.save_ckpt_path))
                 print('=' * 50 + 'the performance in test set...' + '=' * 50)
                 eval_engine = EvalEngine(self.net)
                 test_emo_metric, test_cse_metric, test_pr_metric = eval_engine.eval(self.testset, self.opt.batch_size)

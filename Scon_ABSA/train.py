@@ -1,4 +1,5 @@
 import time
+from pathlib import Path
 
 import mindspore
 import mindspore.nn as nn
@@ -21,9 +22,9 @@ class Instructor:
         self.optimizer = nn.Adam(self.net.trainable_params(), opt.lr, weight_decay=opt.weight_decay)
         self.grad_fn = ops.value_and_grad(self.forward_fn, None, self.net.trainable_params(), has_aux=True)
         self.cur_acc = nn.Accuracy()
-        self.save_ckpt_path = self.opt.data_dir / 'checkpoints' / self.opt.dataset / 'best_eval.ckpt'
-        if not self.save_ckpt_path.exists():
-            self.save_ckpt_path.mkdir(parents=True, exist_ok=True)
+        self.ckpt_parent = Path(self.opt.save_ckpt_path).parent
+        if not self.ckpt_parent.exists():
+            self.ckpt_parent.mkdir(parents=True, exist_ok=True)
 
     def forward_fn(self, inputs):
         outputs = self.net(inputs)
@@ -34,7 +35,6 @@ class Instructor:
         loss = loss1.mean()+loss2+loss3
         return loss, logits
 
-    #@ms_function
     def train_step(self, inputs):
         (loss, logits), grads = self.grad_fn(inputs)
         self.optimizer(grads)
@@ -64,7 +64,7 @@ class Instructor:
             if results[0] > best_res:
                 best_res = results[0]
                 best_epoch = i_epoch
-                mindspore.save_checkpoint(self.net, str(self.save_ckpt_path))
+                mindspore.save_checkpoint(self.net, str(self.opt.save_ckpt_path))
             if i_epoch - best_epoch >= self.opt.patience:
                 print('>>Early Stop!')
                 break
