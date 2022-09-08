@@ -28,10 +28,6 @@ def DataLoader(doc2pair, mode, save_path, config):
         mkdir(save_path)
         return DataSplit(doc2pair, save_path)
     else:
-        # loading already exists data split
-        # train = pickle.load(open(save_path + '/train_{}.pkl'.format(inx), 'rb'))
-        # valid = pickle.load(open(save_path + '/valid_{}.pkl'.format(inx), 'rb'))
-        # test = pickle.load(open(save_path + '/test_{}.pkl'.format(inx), 'rb'))
         train = pickle.load(open(save_path / 'train.pkl', 'rb'))
         valid = pickle.load(open(save_path / 'valid.pkl', 'rb'))
         test = pickle.load(open(save_path / 'test.pkl', 'rb'))
@@ -90,10 +86,6 @@ def Transform2Label(pair_list, doc_len_list, scope):
                     tl = pr[0] - pr[1] + scope if -scope <= pr[0] - pr[1] <= scope else scope * 2 + 1
                     tags[-1] = tl
                     break
-        #                 elif c_id == pr[0]:
-        #                     tl = scope*2 + 1
-        #                     tags[-1] = tl
-        #                     break
         tag_labels.extend(tags)
     return tag_labels, emo_labels, cau_labels
 
@@ -154,7 +146,6 @@ def ExtractPairs(tag_pred, len_list, scope):
                 pair.append((inx + tag - scope, inx))
         ext_pairs.append(pair)
         start = end
-    #     print (tag_pred)
     return ext_pairs
 
 

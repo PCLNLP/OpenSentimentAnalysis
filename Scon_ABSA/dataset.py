@@ -1,6 +1,7 @@
 import os
 import pickle
 import numpy as np
+from pathlib import Path
 import mindspore.dataset.engine as de
 from cybertron import BertTokenizer
 
@@ -28,6 +29,7 @@ def build_tokenizer(fnames, max_seq_len, dat_fname):
         pickle.dump(tokenizer, open(dat_fname, 'wb'))
     return tokenizer
 
+
 def _load_word_vec(path, word2idx=None, embed_dim=300):
     fin = open(path, 'r', encoding='utf-8', newline='\n', errors='ignore')
     word_vec = {}
@@ -37,6 +39,7 @@ def _load_word_vec(path, word2idx=None, embed_dim=300):
         if word in word2idx.keys():
             word_vec[word] = np.asarray(vec, dtype='float32')
     return word_vec
+
 
 def build_embedding_matrix(word2idx, embed_dim, dat_fname):
     if os.path.exists(dat_fname):
@@ -57,6 +60,7 @@ def build_embedding_matrix(word2idx, embed_dim, dat_fname):
         pickle.dump(embedding_matrix, open(dat_fname, 'wb'))
     return embedding_matrix
 
+
 def pad_and_truncate(sequence, maxlen, dtype='int64', padding='post', truncating='post', value=0):
     x = (np.ones(maxlen) * value).astype(dtype)
     if truncating == 'pre':
@@ -69,6 +73,7 @@ def pad_and_truncate(sequence, maxlen, dtype='int64', padding='post', truncating
     else:
         x[-len(trunc):] = trunc
     return x
+
 
 class Tokenizer(object):
     def __init__(self, max_seq_len, lower=True):
@@ -100,6 +105,7 @@ class Tokenizer(object):
             sequence = sequence[::-1]
         return pad_and_truncate(sequence, self.max_seq_len, padding=padding, truncating=truncating)
 
+
 class Tokenizer4Bert:
     def __init__(self, max_seq_len, pretrained_bert_name):
         self.tokenizer = BertTokenizer.load(pretrained_bert_name)
@@ -112,6 +118,7 @@ class Tokenizer4Bert:
         if reverse:
             sequence = sequence[::-1]
         return pad_and_truncate(sequence, self.max_seq_len, padding=padding, truncating=truncating)
+
 
 class Tokenizer4Bert:
     def __init__(self, max_seq_len, pretrained_bert_name):
@@ -146,16 +153,16 @@ class ABSADataset:
             'aspect_boundary',
             'dependency_graph',
             'polarity',
-            #'text',
-            #'aspect',
+            # 'text',
+            # 'aspect',
             "cllabel",
             "polabel"
         ]
         self.dataset = self._read_data()
-    
+
     def _read_data(self):
         with open(self.data_dir, 'r', encoding='utf-8', newline='\n', errors='ignore') as f1:
-            with open(self.data_dir+'.graph', 'rb') as f2:
+            with open(self.data_dir + '.graph', 'rb') as f2:
                 lines = f1.readlines()
                 idx2graph = pickle.load(f2)
 
@@ -163,7 +170,6 @@ class ABSADataset:
 
         if "train" in self.data_dir:
             for i in range(0, len(lines), 5):
-
                 text_left, _, text_right = [s.lower().strip() for s in lines[i].partition("$T$")]
 
                 aspect = lines[i + 1].lower().strip()
@@ -196,8 +202,8 @@ class ABSADataset:
                 aspect_bert_indices = self.tokenizer.text_to_sequence("[CLS] " + aspect + " [SEP]")
 
                 dependency_graph = np.pad(idx2graph[i], \
-                                            ((0, self.tokenizer.max_seq_len - idx2graph[i].shape[0]),
-                                            (0, self.tokenizer.max_seq_len - idx2graph[i].shape[0])), 'constant')
+                                          ((0, self.tokenizer.max_seq_len - idx2graph[i].shape[0]),
+                                           (0, self.tokenizer.max_seq_len - idx2graph[i].shape[0])), 'constant')
 
                 data = [
                     concat_bert_indices,
@@ -214,8 +220,8 @@ class ABSADataset:
                     aspect_boundary,
                     dependency_graph,
                     polarity,
-                    #lines[i],
-                    #aspect,
+                    # lines[i],
+                    # aspect,
                     cllabel,
                     polabel,
                 ]
@@ -223,7 +229,6 @@ class ABSADataset:
         else:
 
             for i in range(0, len(lines), 3):
-
                 text_left, _, text_right = [s.lower().strip() for s in lines[i].partition("$T$")]
 
                 aspect = lines[i + 1].lower().strip()
@@ -242,14 +247,18 @@ class ABSADataset:
                 polarity = int(polarity) + 1
 
                 text_len = np.sum(text_indices != 0)
-                concat_bert_indices = self.tokenizer.text_to_sequence('[CLS] ' + text_left + " " + aspect + " " + text_right + ' [SEP] ' + aspect + " [SEP]")
+                concat_bert_indices = self.tokenizer.text_to_sequence(
+                    '[CLS] ' + text_left + " " + aspect + " " + text_right + ' [SEP] ' + aspect + " [SEP]")
                 concat_segments_indices = [0] * (text_len + 2) + [1] * (aspect_len + 1)
                 concat_segments_indices = pad_and_truncate(concat_segments_indices, self.tokenizer.max_seq_len)
 
-                text_bert_indices = self.tokenizer.text_to_sequence("[CLS] " + text_left + " " + aspect + " " + text_right + " [SEP]")
+                text_bert_indices = self.tokenizer.text_to_sequence(
+                    "[CLS] " + text_left + " " + aspect + " " + text_right + " [SEP]")
                 aspect_bert_indices = self.tokenizer.text_to_sequence("[CLS] " + aspect + " [SEP]")
 
-                dependency_graph = np.pad(idx2graph[i],((0,self.tokenizer.max_seq_len-idx2graph[i].shape[0]),(0,self.tokenizer.max_seq_len-idx2graph[i].shape[0])), 'constant')
+                dependency_graph = np.pad(idx2graph[i], ((0, self.tokenizer.max_seq_len - idx2graph[i].shape[0]),
+                                                         (0, self.tokenizer.max_seq_len - idx2graph[i].shape[0])),
+                                          'constant')
 
                 data = [
                     concat_bert_indices,
@@ -266,8 +275,8 @@ class ABSADataset:
                     aspect_boundary,
                     dependency_graph,
                     polarity,
-                    #lines[i],
-                    #aspect,
+                    # lines[i],
+                    # aspect,
                     0,
                     0,
                 ]
@@ -281,6 +290,7 @@ class ABSADataset:
     def __len__(self):
         return len(self.dataset)
 
+
 class ABSADataLoader():
     def __init__(self, data_dir, tokenize, batch_size=16):
         # 加载原始数据
@@ -289,9 +299,8 @@ class ABSADataLoader():
             tokenize=tokenize
         )
 
-        
         sequential_sampler = de.SequentialSampler()
-        
+
         self.dataset = de.GeneratorDataset(
             dataset,
             dataset.data_keys,
@@ -301,16 +310,18 @@ class ABSADataLoader():
         )
         self.dataset = self.dataset.batch(batch_size, drop_remainder=False, num_parallel_workers=1)
 
+
 def build_dataset(opt):
-    train_dataset_dir = os.path.join(opt.data_dir, ('cl2X3_' + opt.dataset), 'train.raw')
-    test_dataset_dir = os.path.join(opt.data_dir, ('cl2X3_' + opt.dataset), 'test.raw')
+    opt.data_dir = Path(opt.data_dir)
+    train_dataset_dir = opt.data_dir / f'cl2X3_{opt.dataset}' / 'train.raw'
+    test_dataset_dir = opt.data_dir / f'cl2X3_{opt.dataset}' / 'test.raw'
     tokenize = Tokenizer4Bert(opt.max_seq_len, opt.bert_tokenizer)
     absa_train_dataset = ABSADataLoader(
-        data_dir=train_dataset_dir, 
+        data_dir=train_dataset_dir,
         tokenize=tokenize,
         batch_size=16).dataset
     absa_test_dataset = ABSADataLoader(
-        data_dir=test_dataset_dir, 
+        data_dir=test_dataset_dir,
         tokenize=tokenize,
         batch_size=16).dataset
     return absa_train_dataset, absa_test_dataset

@@ -40,6 +40,7 @@ class CEWithLossCell(nn.Cell):
 class Instructor:
     def __init__(self, opt):
         self.opt = opt
+        opt.data_dir = Path(opt.data_dir)
         self.trainset, self.validset, self.testset, _ = DataLoader(None, 'old', opt.data_dir / opt.dataset, None)
         self.net = Model()
         with open('MTST_ECE/config.yaml', 'r') as f:

@@ -1,5 +1,6 @@
 import os
 import pickle
+from pathlib import Path
 import numpy as np
 import mindspore.dataset.engine as de
 from cybertron import BertTokenizer
@@ -263,6 +264,7 @@ class ABSADataLoader:
 
 
 def build_dataset(opt):
+    opt.data_dir = Path(opt.data_dir)
     train_dataset_dir = opt.data_dir / opt.dataset / 'train.raw'
     test_dataset_dir = opt.data_dir / opt.dataset / 'test.raw'
     tokenize = Tokenizer4Bert(opt.max_seq_len, opt.bert_tokenizer)

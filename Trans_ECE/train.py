@@ -31,6 +31,7 @@ class CEWithLossCell(nn.Cell):
 class Instructor:
     def __init__(self, opt):
         self.opt = opt
+        opt.data_dir = Path(opt.data_dir)
         self.trainset, self.validset, self.testset, _ = DataLoader(None, 'old', opt.data_dir / opt.dataset, None)
         self.train_action_sequence = Text2ActionSequence(self.trainset)
         self.single_labels_list = Text2SingleLabel(self.trainset)

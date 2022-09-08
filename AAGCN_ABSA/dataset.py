@@ -1,5 +1,6 @@
 import os
 import pickle
+from pathlib import Path
 from random import shuffle
 import numpy as np
 import mindspore.dataset.engine as de
@@ -77,11 +78,6 @@ class Tokenizer(object):
 
 
 def get_tokenizer(opt, dataset_paths):
-    # if os.path.exists('./dataset/word2idx/' + dataset_prefix + '_word2idx.pkl'):
-    #     print("[ARGS] loading {0} tokenizer...".format(dataset_prefix))
-    #     with open('./dataset/word2idx/' + dataset_prefix + '_word2idx.pkl', 'rb') as f:
-    #         word2idx = pickle.load(f)
-    #         tokenizer = Tokenizer(word2idx=word2idx)
     w2i_path = opt.data_dir / 'word2idx' / opt.dataset / 'word2idx.pkl'
     if w2i_path.exists():
         print("[ARGS] loading {0} tokenizer...".format(opt.dataset))
@@ -228,8 +224,7 @@ def random_split(dataset, lengths):
 
 
 def build_dataset(opt):
-    # train_dataset_path = './dataset/{}/{}_train.raw.tokenized'.format(knowledge_base, dataset_prefix)
-    # test_dataset_path = './dataset/{}/{}_test.raw.tokenized'.format(knowledge_base, dataset_prefix)
+    opt.data_dir = Path(opt.data_dir)
     train_dataset_dir = opt.data_dir / opt.dataset / 'train.raw.tokenized'
     test_dataset_dir = opt.data_dir / opt.dataset / 'test.raw.tokenized'
     tokenize = get_tokenizer(opt, [train_dataset_dir, test_dataset_dir])
@@ -262,7 +257,3 @@ def build_dataset(opt):
         dataset=test_dataset, data_keys=data_keys,
         batch_size=opt.batch_size, worker_num=opt.num_workers, shuffle=False)
     return train_loader, val_loader, test_loader, embedding_matrix
-
-
-# if __name__ == '__main__':
-#     build_dataset(opt)
