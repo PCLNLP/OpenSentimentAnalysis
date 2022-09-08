@@ -228,7 +228,7 @@ class Senticgcn(nn.Cell):
 class Model(nn.Cell):
     def __init__(self):
         super(Model, self).__init__()
-        with open('SenticBERT_ABSA/config.yaml', 'r') as f:
+        with open('/code/SenticBERT_ABSA/config.yaml', 'r') as f:
             self.cfg = yaml.load(f, Loader=yaml.FullLoader)
         self.bert = BertModel.load(self.cfg['pretrained_bert_name'])
         self.gc1 = GraphConvolution(self.cfg['hidden_dim'], self.cfg['hidden_dim'])
