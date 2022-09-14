@@ -113,12 +113,12 @@ save_ckpt_path  /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
 
 模型 |Pytorch  |Mindspore |Tensorlayer |
 |--------|------|------|--------------------|
-| [AAGCN_ABSA](./MindSpore_Sentiment_Analysis/AAGCN_ABSA)|:heavy_check_mark:| :heavy_check_mark: |                    |
-| [InterGCNBERT_ABSA](./MindSpore_Sentiment_Analysis/InterGCNBERT_ABSA)|:heavy_check_mark:| :heavy_check_mark: |                    |
-| [MTST_ECE](./MindSpore_Sentiment_Analysis/MTST_ECE)|:heavy_check_mark:| :heavy_check_mark: |                    |
-| [Scon_ABSA](./MindSpore_Sentiment_Analysis/Scon_ABSA)|:heavy_check_mark:| :heavy_check_mark: |                    |
-| [SenticBERT_ABSA](./MindSpore_Sentiment_Analysis/SenticBERT_ABSA)|:heavy_check_mark:| :heavy_check_mark: |                    |
-| [Trans_ECE](./MindSpore_Sentiment_Analysis/Trans_ECE)|:heavy_check_mark:| :heavy_check_mark: |                    |
+| [AAGCN_ABSA](./AAGCN_ABSA)|:heavy_check_mark:| :heavy_check_mark: |                    |
+| [InterGCNBERT_ABSA](./InterGCNBERT_ABSA)|:heavy_check_mark:| :heavy_check_mark: |                    |
+| [MTST_ECE](./MTST_ECE)|:heavy_check_mark:| :heavy_check_mark: |                    |
+| [Scon_ABSA](./Scon_ABSA)|:heavy_check_mark:| :heavy_check_mark: |                    |
+| [SenticBERT_ABSA](./SenticBERT_ABSA)|:heavy_check_mark:| :heavy_check_mark: |                    |
+| [Trans_ECE](./Trans_ECE)|:heavy_check_mark:| :heavy_check_mark: |                    |
 
 ## 结果对比
 
