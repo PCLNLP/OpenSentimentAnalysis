@@ -18,19 +18,19 @@
  ```
 .
 └─InterGCNBERT_ABSA_data
-  ├─checkpoints									  		   
-    └─ms_intergcn_bert_rest16_acc_0.9075_f1_0.7239.ckpt    # 网络正向对齐测试 ckpt      
-  └─glove.42B.300d.txt       						       # 辅助数据
-  ├─lap14												   # 数据集
-  	├─test.raw											   # 测试集数据
-  	├─test.raw.graph_af									   # 测试集图数据
-  	├─test.raw.graph_inter								   # 测试集图数据
-  	├─train.raw											   # 训练集数据
-  	├─train.raw.graph_af								   # 训练集图数据
-  	└─train.raw.graph_inter								   # 训练集图数据
-  ├─rest14												   # 与 lap14 目录一致
-  ├─rest15												   # 与 lap14 目录一致
-  ├─rest16												   # 与 lap14 目录一致
+  ├─checkpoints   
+    └─ms_intergcn_bert_rest16_acc_0.9075_f1_0.7239.ckpt     # 网络正向对齐测试 ckpt      
+  └─glove.42B.300d.txt                                      # 辅助数据
+  ├─lap14                                                   # 数据集
+    ├─test.raw                                              # 测试集数据
+    ├─test.raw.graph_af                                     # 测试集图数据
+    ├─test.raw.graph_inter                                  # 测试集图数据
+    ├─train.raw                                             # 训练集数据
+    ├─train.raw.graph_af                                    # 训练集图数据
+    └─train.raw.graph_inter                                 # 训练集图数据
+  ├─rest14                                                  # 与 lap14 目录一致
+  ├─rest15                                                  # 与 lap14 目录一致
+  ├─rest16                                                  # 与 lap14 目录一致
  ```
 
 其中以 `.ckpt` 结尾的文件为 checkpoint，该 checkpoint 可以用来测试 MindSpore 网络的正向计算是否与 PyTorch 对齐。checkpoint 的命名方式为 `框架_算法_数据集_指标_结果_...指标_结果.ckpt` 。如果要进行正向测试，只需要在 *eval* 模式加载该 checkpoint，并在对应的数据集（这里为 rest16）上进行推理即可。若推理结果在各个指标上（这里为 acc 和 f1）与 checkpoint 名字中的结果一致，则表示正向计算已对齐。 
@@ -41,16 +41,16 @@
 .
 └─InterGCNBERT_ABSA
   ├─README.md
-  ├─utils									  # 辅助功能代码
-    ├─generate_graph_for_aspect.py            # 生成图
-    ├─generate_position_con_graph.py          # 生成图
-    └─init.py                                 # XavierNormal 初始化方法
-  ├─__init__.py       						  # 暴露算法包的 Instructor 接口
-  ├─config.yaml           					  # 配置模型参数
-  ├─dataset.py          					  # 数据预处理
-  ├─eval.py              					  # 网络推理流程
-  ├─model.py 								  # 网络骨干编码
-  └─train.py 								  # 网络训练流程
+  ├─utils                                                   # 辅助功能代码
+    ├─generate_graph_for_aspect.py                          # 生成图
+    ├─generate_position_con_graph.py                        # 生成图
+    └─init.py                                               # XavierNormal 初始化方法
+  ├─__init__.py                                             # 暴露算法包的 Instructor 接口
+  ├─config.yaml                                             # 配置模型参数
+  ├─dataset.py                                              # 数据预处理
+  ├─eval.py                                                 # 网络推理流程
+  ├─model.py                                                # 网络骨干编码
+  └─train.py                                                # 网络训练流程
 ```
 
 ## 统一接口
@@ -66,25 +66,25 @@
               [--weight_decay WEIGHT_DECAY] [--mode {train,eval}]
               [--graph_mode GRAPH_MODE]
 选项：
-    --algo					# 算法包名
-    --data_dir				# 该算法对应的数据集目录
-    --dataset				# 具体的数据集名
-    --save_ckpt_path		# ckpt 的保存路径
-    --valset_ratio			# 验证集所占比例
-    --bert_tokenizer		# 采用的 BERT Tokenizer
-    --batch_size			# 训练和推理的 batch size
-    --num_workers			# 读取数据的线程数
-    --max_seq_len			# 最大序列长度
-    --num_epochs			# 最大训练 epoch 数
-    --warmup				# 训练中 warmup 比例
-    --log_step				# 记录数据的 step 间隔数
-    --patience				# EarlyStopping 的 patience
-    --device				# 任务运行的目标设备，可选 Ascend、CPU 和 GPU
-    --seed					# 随机数种子
-    --lr					# 学习率
-    --weight_decay			# 权重衰减
-    --mode					# 运行模式，可选 train 和 eval
-    --graph_mode			# MindSpore 图模式，若为 False，则采用 PYNATIVE_MODE
+    --algo                                                  # 算法包名
+    --data_dir                                              # 该算法对应的数据集目录
+    --dataset                                               # 具体的数据集名
+    --save_ckpt_path                                        # ckpt 的保存路径
+    --valset_ratio                                          # 验证集所占比例
+    --bert_tokenizer                                        # 采用的 BERT Tokenizer
+    --batch_size                                            # 训练和推理的 batch size
+    --num_workers                                           # 读取数据的线程数
+    --max_seq_len                                           # 最大序列长度
+    --num_epochs                                            # 最大训练 epoch 数
+    --warmup                                                # 训练中 warmup 比例
+    --log_step                                              # 记录数据的 step 间隔数
+    --patience                                              # EarlyStopping 的 patience
+    --device                                                # 任务运行的目标设备，可选 Ascend、CPU 和 GPU
+    --seed                                                  # 随机数种子
+    --lr                                                    # 学习率
+    --weight_decay                                          # 权重衰减
+    --mode                                                  # 运行模式，可选 train 和 eval
+    --graph_mode                                            # MindSpore 图模式，若为 False，则采用 PYNATIVE_MODE
 ```
 
 
