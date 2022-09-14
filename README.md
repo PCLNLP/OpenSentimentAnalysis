@@ -100,6 +100,15 @@ python run.py --algo InterGCNBERT_ABSA --data_dir /dataset/sentiment_analysis_da
 
 ## 训练任务
 
+在云脑->训练任务界面中，点击右上角的 `新建训练任务` 。计算资源选择 `CPU/GPU` ，镜像选择 `ms_181_cuda_111` ，数据集选择 `sentiment_analysis_data.zip` ，启动文件填写 `run.py` ，任务名称、任务描述及资源规格按需求填写，运行参数按照统一接口处的说明按需求自行添加，以InterGCN与rest16数据集为例：
+```
+参数名          参数值
+algo            InterGCNBERT_ABSA
+data_dir        /dataset/sentiment_analysis_data/InterGCNBERT_ABSA_data
+dataset         rest16
+save_ckpt_path  /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
+```
+
 ## 结果对比
 
 ## 如何贡献
