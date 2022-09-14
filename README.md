@@ -94,7 +94,7 @@
 首先在云脑->调试任务界面中，点击右上角的 `新建调试任务` 。进入新建任务界面后，计算资源选择 `CPU/GPU` ，镜像选择 `ms_181_cuda_111` ，数据集选择 `sentiment_analysis_data.zip` ，任务名称及资源规格按需求填写。点击新建任务，稍等片刻即可开始调试。
 进入调试终端后，可以通过修改 `run.py` 改变参数，也可以直接按照统一接口处的说明选择自己想要的参数。若要在调试模式下进行训练，以InterGCN与rest16数据集为例：
 
-```python
+```bash
 python run.py --algo InterGCNBERT_ABSA --data_dir /dataset/sentiment_analysis_data/InterGCNBERT_ABSA_data --dataset rest16 --save_ckpt_path /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
 ```
 
