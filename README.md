@@ -122,7 +122,7 @@ dataset         rest16
 save_ckpt_path  /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
 ```
 
-## 算法框架支持
+## 框架支持
 
 模型 |Pytorch  |Mindspore |Tensorlayer |
 |--------|------|------|--------------------|
