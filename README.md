@@ -135,4 +135,4 @@ save_ckpt_path  /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
 
 ## 结果对比
 
-## 如何贡献
+## 性能对比
