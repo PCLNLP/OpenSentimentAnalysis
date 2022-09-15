@@ -47,7 +47,7 @@ class BERT_SPC_CL(nn.Cell):
     def reset_parameters(self):
         for cell in self.cells():
             if type(cell) != BertModel:
-                for param in self.get_parameters():
+                for param in cell.get_parameters():
                     if param.requires_grad:
                         if len(param.shape) > 1:
                             param.set_data(initializer(XavierNormal(), param.shape))
