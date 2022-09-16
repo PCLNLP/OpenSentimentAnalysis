@@ -29,14 +29,14 @@ if __name__ == '__main__':
     parser.add_argument('--weight_decay', default=0.00001, type=float)
     # train/eval
     parser.add_argument('--mode', default='train', type=str, choices=['train', 'eval'])
-    parser.add_argument('--graph_mode', default=True, type=bool)
+    parser.add_argument('--pynative_mode', default=False, action='store_true')
 
     opt = parser.parse_args()
     mindspore.set_seed(opt.seed)
-    if opt.graph_mode:
-        context.set_context(mode=context.GRAPH_MODE, device_target=opt.device)
-    else:
+    if opt.pynative_mode:
         context.set_context(mode=context.PYNATIVE_MODE, device_target=opt.device)
+    else:
+        context.set_context(mode=context.GRAPH_MODE, device_target=opt.device)
     algo = importlib.import_module(opt.algo)
     print(f'Start running algorithm {opt.algo} in {opt.mode} mode.')
     if opt.mode == 'train':
