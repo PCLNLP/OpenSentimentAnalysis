@@ -97,7 +97,7 @@ OpenABSA 是一个以 ABSA（Aspect-Based Sentiment Analysis）算法为主的�
     --lr                                                    # 学习率
     --weight_decay                                          # 权重衰减
     --mode                                                  # 运行模式，可选 train 和 eval
-    --graph_mode                                            # MindSpore 图模式，若为 False，则采用 PYNATIVE_MODE
+    --pynative_mode                                         # 使用 PYNATIVE_MODE
 ```
 
 
