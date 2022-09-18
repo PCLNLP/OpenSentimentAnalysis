@@ -158,7 +158,7 @@ save_ckpt_path  /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
 |rest15|85.42|84.50|
 |rest16|92.53|92.37|
 
-*:以上测试结果结果均为V100环境下测试所得
+*:以上测试结果均为V100环境下测试所得
 
 ## 性能对比
 Pytorch环境下训练平均每epoch时间：
