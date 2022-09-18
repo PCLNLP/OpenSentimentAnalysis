@@ -162,13 +162,13 @@ class ABSADataset:
 
     def _read_data(self):
         with open(self.data_dir, 'r', encoding='utf-8', newline='\n', errors='ignore') as f1:
-            with open(self.data_dir + '.graph', 'rb') as f2:
+            with open(self.data_dir.with_suffix('.raw.graph'), 'rb') as f2:
                 lines = f1.readlines()
                 idx2graph = pickle.load(f2)
 
         all_data = []
 
-        if "train" in self.data_dir:
+        if "train" in str(self.data_dir):
             for i in range(0, len(lines), 5):
                 text_left, _, text_right = [s.lower().strip() for s in lines[i].partition("$T$")]
 
