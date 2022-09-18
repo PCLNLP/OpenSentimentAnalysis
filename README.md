@@ -137,14 +137,14 @@ save_ckpt_path  /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
 
 ## 性能对比
 Pytorch环境下训练平均每epoch时间
-算法|rest14|lap14|rest15|rest16|
+|算法|rest14|lap14|rest15|rest16|
 |--------|------|------|-------|
 | InterGCNBERT_ABSA|31.0|20.0|10.3|15.0|
 | SenticBERT_ABSA|30.4|20.0|10.2|14.9|
 | Scon_ABSA|24.2|15.5|8.2|11.8|
 
 Mindspore环境下训练平均每epoch时间
-算法|rest14|lap14|rest15|rest16|
+|算法|rest14|lap14|rest15|rest16|
 |--------|------|------|-------|
 | [InterGCNBERT_ABSA](./InterGCNBERT_ABSA)|45.2|29.0|15.0|21.6|
 | [SenticBERT_ABSA](./SenticBERT_ABSA)|44.7|28.9|15.0|21.5|
