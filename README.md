@@ -136,21 +136,22 @@ save_ckpt_path  /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
 ## 结果对比
 
 以下为各算法在论文中的提供的精度（%）与Mindspore环境下复现的训练精度（%）对比*:
-InterGCNBERT_ABSA
+
+### InterGCNBERT_ABSA
 
 |数据集|论文|Mindspore|
 |-----|----|:--------:|
 |rest15|85.42|84.13|
 |rest16|91.27|91.56|
 
-SenticBERT_ABSA
+### SenticBERT_ABSA
 
 |数据集|论文|Mindspore|
 |-----|----|:--------:|
 |rest15|85.32|83.76|
 |rest16|91.97|91.88|
 
-Scon_ABSA
+### Scon_ABSA
 
 |数据集|论文|Mindspore|
 |-----|----|:--------:|
