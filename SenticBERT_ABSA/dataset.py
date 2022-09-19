@@ -152,6 +152,7 @@ class ABSADataSet:
             weight.append(1 - (j - (left_len + aspect_len - 1)) / context_len)
         for j in range(text_len, seq_len):
             weight.append(0)
+        weight = np.array(weight).astype(np.float32)
         return weight
 
     @staticmethod

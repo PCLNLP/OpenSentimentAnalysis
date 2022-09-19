@@ -23,6 +23,7 @@ if __name__ == '__main__':
     parser.add_argument('--log_step', default=10, type=int)
     parser.add_argument('--patience', default=5, type=int)
     parser.add_argument('--device', default='GPU', type=str, choices=['Ascend', 'CPU', 'GPU'])
+    parser.add_argument('--device_id', default=0, type=int)
     parser.add_argument('--seed', default=1000, type=int, help='set seed for reproducibility')
     # optimizer params
     parser.add_argument('--lr', default=5e-5, type=float, help='try 5e-5, 2e-5 for BERT, 1e-3 for others')
@@ -34,11 +35,12 @@ if __name__ == '__main__':
     opt = parser.parse_args()
     mindspore.set_seed(opt.seed)
     if opt.pynative_mode:
-        context.set_context(mode=context.PYNATIVE_MODE, device_target=opt.device)
+        context.set_context(mode=context.PYNATIVE_MODE, device_target=opt.device, device_id=opt.device_id)
+        print(f'[PYNATIVE]Start running algorithm {opt.algo} in {opt.mode} mode.')
     else:
-        context.set_context(mode=context.GRAPH_MODE, device_target=opt.device)
+        context.set_context(mode=context.GRAPH_MODE, device_target=opt.device, device_id=opt.device_id)
+        print(f'[GRAPH]Start running algorithm {opt.algo} in {opt.mode} mode.')
     algo = importlib.import_module(opt.algo)
-    print(f'Start running algorithm {opt.algo} in {opt.mode} mode.')
     if opt.mode == 'train':
         ins = algo.Instructor(opt)
         ins.train()

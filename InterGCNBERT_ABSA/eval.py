@@ -4,7 +4,6 @@ import mindspore.nn as nn
 import mindspore.ops as ops
 from collections import namedtuple
 from mindspore.common import mutable
-from sklearn import metrics
 
 
 class EvalEngine:
@@ -34,7 +33,7 @@ class EvalEngine:
         eval_end_time = time.time()
         print(f'eval_speed: {(eval_end_time - eval_start_time) / eval_steps:.2f} s/step')
         acc = self._acc(t_outputs_all, t_targets_all)
-        f1 = metrics.f1_score(t_targets_all.asnumpy(), ops.Argmax(-1)(t_outputs_all).asnumpy(), labels=[0, 1, 2], average='macro')
+        f1 = self._f1(t_outputs_all, t_targets_all)
         Results = namedtuple('Results', ['acc', 'f1'])
         results = Results(acc, f1)
         print('Test Results:')
