@@ -155,30 +155,35 @@ class SLModel(nn.Cell):
         return de_outputs
 
     def ProbsBias(self, i, tag_probs_seg, cau_probs_seg, e_i):
-
         num_seg = tag_probs_seg.shape[0]
         num_pre = self.scope - i if self.scope - i > 0 else 0
-        top_padding = ops.Zeros()((num_pre, self.scope * 2 + 1 + 1), mindspore.float32)
-        cau_probs_seg = ops.Concat()([Tensor([0] * num_pre, mindspore.float32), cau_probs_seg])
-        num_tail = self.scope - (num_seg - i - 1) if self.scope - (num_seg - i - 1) > 0 else 0
-        tail_padding = ops.Zeros()((num_tail, self.scope * 2 + 1 + 1), mindspore.float32)
-        cau_probs_seg = ops.Concat()([cau_probs_seg, Tensor([0] * num_tail, mindspore.float32)])
-        padding_seg = ops.Concat()([top_padding, tag_probs_seg, tail_padding])
-
+        top_padding = ops.Zeros()((num_pre, self.scope*2+1+1), mindspore.float32)
+        if num_pre > 0:
+            cau_probs_seg = ops.Concat()([Tensor([0]*num_pre, mindspore.float32), cau_probs_seg])
+        num_tail = self.scope - (num_seg-i-1) if self.scope - (num_seg-i-1) > 0 else 0
+        tail_padding = ops.Zeros()((num_tail, self.scope*2+1+1), mindspore.float32)
+        if num_tail > 0:
+            cau_probs_seg = ops.Concat()([cau_probs_seg, Tensor([0]*num_tail, mindspore.float32)])
+        if num_pre > 0:
+            padding_seg = ops.Concat()([top_padding, tag_probs_seg])
+        else:
+            padding_seg = tag_probs_seg
+        if num_tail > 0:
+            padding_seg = ops.Concat()([padding_seg, tail_padding])
         bias = []
-        for i in range(self.scope * 2 + 1):
-            total = 1 - padding_seg[i][self.scope * 2 - i]
-            p_weight = 1 - (abs(i - self.scope) + self.gamma) / (self.scope + self.gamma * 2)
+        for i in range (self.scope*2+1):
+            total = 1 - padding_seg[i][self.scope*2-i]
+            p_weight = 1 - (abs(i-self.scope)+self.gamma)/(self.scope+self.gamma*2)
             e_weight = e_i
             c_weight = cau_probs_seg[i]
             if e_i > 0.5:
                 v = c_weight * e_weight * p_weight * total
             else:
-                v = (1 - c_weight) * (1 - e_weight) * (1 - p_weight) * (1 - total)
-            temp = [-v / (self.scope * 2 + 1) if _ != self.scope * 2 - i else v for _ in range(self.scope * 2 + 1 + 1)]
+                v = (1-c_weight) * (1-e_weight) * (1-p_weight) * (1-total)
+            temp = [-v/(self.scope*2+1) if _ != self.scope*2-i else v for _ in range(self.scope*2+1+1)]
             temp = ops.Stack()(temp)
             bias.append(Tensor(temp))
-        bias = bias[num_pre: num_pre + num_seg]
+        bias = bias[num_pre: num_pre+num_seg]
         bias = ops.Stack(0)(bias)
         return bias
 
