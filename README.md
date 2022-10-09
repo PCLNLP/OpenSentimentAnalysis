@@ -131,7 +131,8 @@ save_ckpt_path  /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
 | [MTST_ECE](./MTST_ECE)|:heavy_check_mark:| :heavy_check_mark: |                    |
 | [Scon_ABSA](./Scon_ABSA)|:heavy_check_mark:| :heavy_check_mark: |                    |
 | [SenticBERT_ABSA](./SenticBERT_ABSA)|:heavy_check_mark:| :heavy_check_mark: |                    |
-| [Trans_ECE](./Trans_ECE)|:heavy_check_mark:| :heavy_check_mark: |                    |
+| [Trans_ECE](./Trans_ECE)|:heavy_check_mark:| :heavy_check_mark: |                    |           |
+| [ASGCN](./ASGCN)|:heavy_check_mark:| :heavy_check_mark: |                    |           |
 
 ## 结果对比
 
