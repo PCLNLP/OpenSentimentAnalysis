@@ -1,0 +1,11 @@
+hidden_dim: 300
+embed_dim: 300
+polarities_dim: 3
+dropout: 0.3
+input_columns:
+  - text_indices
+  - text_len
+  - dependency_graph
+  - weight
+  - mask
+initializer: xavier_normal
