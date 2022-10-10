@@ -4,9 +4,13 @@ OpenABSA 是一个以 ABSA（Aspect-Based Sentiment Analysis）算法为主的�
 
 ## 动态
 
+### 2022-10-10
+
+- 新增算法ASGCN_ABSA，已完成静态图迁移。
+
 ### 2022-09-09
 
-- 目前算法包已支持 5 个 MindSpore 算法
+- 目前算法包已支持 5 个 MindSpore 算法，其中InterGCN_ABSA，SenticGCN_ABSA和Scon_ABSA已经完成静态图迁移，在GPU与NPU环境下推理精度均可对齐，且GPU环境下已完成模型训练测试。
 
 ## 关键特性
 
@@ -124,7 +128,7 @@ save_ckpt_path  /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
 
 ## 框架支持
 
-模型 |Pytorch  |Mindspore |Tensorlayer |
+模型 |Pytorch  |MindSpore |Tensorlayer |
 |--------|------|------|--------------------|
 | [AAGCN_ABSA](./AAGCN_ABSA)|:heavy_check_mark:| :heavy_check_mark: |                    |
 | [InterGCNBERT_ABSA](./InterGCNBERT_ABSA)|:heavy_check_mark:| :heavy_check_mark: |                    |
@@ -136,30 +140,36 @@ save_ckpt_path  /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
 
 ## 结果对比
 
+### 推理
+
+算法包中的所有算法的推理精度均可与Pytorch环境下的精度完全对齐。
+
+### 训练
+
 以下为各算法在论文中的提供的精度（%）与Mindspore环境下复现的训练精度（%）对比*:
 
-### InterGCNBERT_ABSA
+#### InterGCNBERT_ABSA
 
-|数据集|论文|Mindspore|
-|-----|----|:--------:|
-|rest15|85.42|84.13|
-|rest16|91.27|91.56|
+|数据集|论文|MindSpore|Pytorch|
+|-----|----|:--------:|:---:|
+|rest15|85.42|84.13|83.39|
+|rest16|91.27|91.56|91.07|
 
-### SenticBERT_ABSA
+#### SenticBERT_ABSA
 
-|数据集|论文|Mindspore|
-|-----|----|:--------:|
-|rest15|85.32|83.76|
-|rest16|91.97|91.88|
+|数据集|论文|MindSpore|Pytorch|
+|-----|----|:--------:|:---:|
+|rest15|85.32|83.76|85.42|
+|rest16|91.97|91.88|92.21|
 
-### Scon_ABSA
+#### Scon_ABSA
 
-|数据集|论文|Mindspore|
-|-----|----|:--------:|
-|rest15|85.42|84.50|
-|rest16|92.53|92.37|
+|数据集|论文|MindSpore|Pytorch|
+|-----|----|:--------:|:----:|
+|rest15|85.42|84.50|84.32|
+|rest16|92.53|92.37|91.56|
 
-*:以上测试结果均为V100环境下测试所得
+*:MindSpore与Pytorch测试结果均为V100环境下测试所得，由于训练集较小，训练结果受随机种子等参数影响较大，可能出现精度无法完全与论文结果对齐的情况，以上结果均在正常范围之内。
 
 ## 性能对比
 Pytorch环境下训练平均每epoch时间：
@@ -170,7 +180,7 @@ Pytorch环境下训练平均每epoch时间：
 | [SenticBERT_ABSA](./SenticBERT_ABSA)|30.4|20.0|10.2|14.9|
 | [Scon_ABSA](./Scon_ABSA)|24.2|15.5|8.2|11.8|
 
-Mindspore环境下训练平均每epoch时间**：
+MindSpore环境下训练平均每epoch时间*：
 
 |算法|rest14|lap14|rest15|rest16|
 |--------|------|------|-------|----|
@@ -178,4 +188,4 @@ Mindspore环境下训练平均每epoch时间**：
 | [SenticBERT_ABSA](./SenticBERT_ABSA)|44.7|28.9|15.0|21.5|
 | [Scon_ABSA](./Scon_ABSA)|44.3|28.5|14.7|21.4|
 
-**:以上结果均为V100环境下测试所得
+*:以上结果均为V100环境下测试所得。其中MindSpore环境代码尚未针对混合精度方面进行优化，训练速度仍有较大提升空间。
