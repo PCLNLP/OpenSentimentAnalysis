@@ -6,11 +6,14 @@ OpenABSA 是一个以 ABSA（Aspect-Based Sentiment Analysis）算法为主的�
 
 ### 2022-10-10
 
-- 新增算法ASGCN_ABSA，已完成静态图迁移。
+- 新增算法 ASGCN_ABSA，已完成静态图迁移
 
 ### 2022-09-09
 
-- 目前算法包已支持 5 个 MindSpore 算法，其中InterGCN_ABSA，SenticGCN_ABSA和Scon_ABSA已经完成静态图迁移，在GPU与NPU环境下推理精度均可对齐，且GPU环境下已完成模型训练测试。
+- 目前算法包已支持 5 个 MindSpore 算法
+- 所有算法在 GPU 和 Ascend 平台正向推理精度均与 PyTorch 对齐
+- InterGCN_ABSA，SenticGCN_ABSA 和 Scon_ABSA 完成静态图迁移，且已在 GPU 上完成模型训练
+- AAGCN_ABSA 算法 PyTorch 源码缺失，待完善
 
 ## 关键特性
 
@@ -109,7 +112,7 @@ OpenABSA 是一个以 ABSA（Aspect-Based Sentiment Analysis）算法为主的�
 ## 调试任务
 
 首先在云脑->调试任务界面中，点击右上角的 `新建调试任务` 。进入新建任务界面后，计算资源选择 `CPU/GPU` ，镜像选择 `ms_181_cuda_111` ，数据集选择 `sentiment_analysis_data.zip` ，任务名称及资源规格按需求填写。点击新建任务，稍等片刻即可开始调试。
-进入调试终端后，可以通过修改 `run.py` 改变参数，也可以直接按照统一接口处的说明选择自己想要的参数。若要在调试模式下进行训练，以InterGCN与rest16数据集为例：
+进入调试终端后，可以通过修改 `run.py` 改变参数，也可以直接按照统一接口处的说明选择自己需要的参数。若要在调试模式下进行训练，以 InterGCNBERT_ABSA 算法和 rest16 数据集为例：
 
 ```bash
 python run.py --algo InterGCNBERT_ABSA --data_dir /dataset/sentiment_analysis_data/InterGCNBERT_ABSA_data --dataset rest16 --save_ckpt_path /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
@@ -117,7 +120,7 @@ python run.py --algo InterGCNBERT_ABSA --data_dir /dataset/sentiment_analysis_da
 
 ## 训练任务
 
-在云脑->训练任务界面中，点击右上角的 `新建训练任务` 。计算资源选择 `CPU/GPU` ，镜像选择 `ms_181_cuda_111` ，数据集选择 `sentiment_analysis_data.zip` ，启动文件填写 `run.py` ，任务名称、任务描述及资源规格按需求填写，运行参数按照统一接口处的说明按需求自行添加，以InterGCN与rest16数据集为例：
+在云脑->训练任务界面中，点击右上角的 `新建训练任务` 。计算资源选择 `CPU/GPU` ，镜像选择 `ms_181_cuda_111` ，数据集选择 `sentiment_analysis_data.zip` ，启动文件填写 `run.py` ，任务名称、任务描述及资源规格按需求填写，运行参数按照统一接口处的说明自行添加，以 InterGCNBERT_ABSA 算法和 rest16 数据集为例：
 ```
 参数名          参数值
 algo            InterGCNBERT_ABSA
@@ -142,37 +145,37 @@ save_ckpt_path  /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
 
 ### 推理
 
-算法包中的所有算法的推理精度均可与Pytorch环境下的精度完全对齐。
+算法包中所有算法的正向推理精度均与 PyTorch 源代码对齐
 
 ### 训练
 
-以下为各算法在论文中的提供的精度（%）与Mindspore环境下复现的训练精度（%）对比*:
+以下为各算法的论文发表结果、MindSpore 训练结果及 PyTorch 源码训练结果对比:
 
 #### InterGCNBERT_ABSA
 
-|数据集|论文|MindSpore|Pytorch|
+|数据集|论文结果|MindSpore 结果|PyTorch 结果|
 |-----|----|:--------:|:---:|
 |rest15|85.42|84.13|83.39|
 |rest16|91.27|91.56|91.07|
 
 #### SenticBERT_ABSA
 
-|数据集|论文|MindSpore|Pytorch|
+|数据集|论文结果|MindSpore 结果|PyTorch 结果|
 |-----|----|:--------:|:---:|
 |rest15|85.32|83.76|85.42|
 |rest16|91.97|91.88|92.21|
 
 #### Scon_ABSA
 
-|数据集|论文|MindSpore|Pytorch|
+|数据集|论文结果|MindSpore 结果|PyTorch 结果|
 |-----|----|:--------:|:----:|
 |rest15|85.42|84.50|84.32|
 |rest16|92.53|92.37|91.56|
 
-*:MindSpore与Pytorch测试结果均为V100环境下测试所得，由于训练集较小，训练结果受随机种子等参数影响较大，可能出现精度无法完全与论文结果对齐的情况，以上结果均在正常范围之内。
+*Note: MindSpore 与 PyTorch 均为 V100 下的测试结果。由于训练集较小，精度受随机种子等参数影响较大，可能出现精度无法完全与论文结果对齐的情况。经讨论，各方一致认为以上结果均在合理范围之内。*
 
 ## 性能对比
-Pytorch环境下训练平均每epoch时间：
+PyTorch 框架训练时间（单位：s/epoch）：
 
 |算法|rest14|lap14|rest15|rest16|
 |--------|------|------|-------|----|
@@ -180,7 +183,7 @@ Pytorch环境下训练平均每epoch时间：
 | [SenticBERT_ABSA](./SenticBERT_ABSA)|30.4|20.0|10.2|14.9|
 | [Scon_ABSA](./Scon_ABSA)|24.2|15.5|8.2|11.8|
 
-MindSpore环境下训练平均每epoch时间*：
+MindSpore 框架训练时间（单位：s/epoch）：
 
 |算法|rest14|lap14|rest15|rest16|
 |--------|------|------|-------|----|
@@ -188,4 +191,4 @@ MindSpore环境下训练平均每epoch时间*：
 | [SenticBERT_ABSA](./SenticBERT_ABSA)|44.7|28.9|15.0|21.5|
 | [Scon_ABSA](./Scon_ABSA)|44.3|28.5|14.7|21.4|
 
-*:以上结果均为V100环境下测试所得。其中MindSpore环境代码尚未针对混合精度方面进行优化，训练速度仍有较大提升空间。
+*Note:以上结果均为 V100 下测试所得。其中 MindSpore 代码尚未针对混合精度进行调优，训练速度仍有较大提升空间。*
