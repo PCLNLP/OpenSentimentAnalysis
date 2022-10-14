@@ -1,6 +1,6 @@
-## OpenABSA
+## OpenSentimentAnalysis
 
-OpenABSA 是一个以 ABSA（Aspect-Based Sentiment Analysis）算法为主的开源工具包。基于 MindSpore 实现，支持 GPU 和昇腾（HUAWEI Ascend） 双硬件平台。OpenABSA 为所有算法提供统一接口，可通过参数设置切换不同的算法和硬件平台。依托启智社区，支持使用云脑 I 和云脑 II 资源进行线上调试和训练。PyTorch 版本的算法实现参见：https://git.openi.org.cn/PCLNLP/SentimentAnalysisNLP。
+OpenSentimentAnalysis 是一个以情感分析算法为主的开源工具包。基于 MindSpore 实现，支持 GPU 和昇腾（HUAWEI Ascend） 双硬件平台。OpenSentimentAnalysis 为所有算法提供统一接口，可通过参数设置切换不同的算法和硬件平台。依托启智社区，支持使用云脑 I 和云脑 II 资源进行线上调试和训练。PyTorch 版本的算法实现参见：https://git.openi.org.cn/PCLNLP/SentimentAnalysisNLP。
 
 ## 动态
 
