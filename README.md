@@ -152,24 +152,31 @@ save_ckpt_path  /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
 
 #### InterGCNBERT_ABSA
 
-|数据集|论文结果|MindSpore 结果|PyTorch 结果|
-|-----|----|:--------:|:---:|
-|rest15|85.42|84.13|83.39|
-|rest16|91.27|91.56|91.07|
+|数据集|MindSpore 结果|PyTorch 结果|
+|-----|:--------:|:---:|
+|rest15|84.13|83.39|
+|rest16|91.56|91.07|
 
 #### SenticBERT_ABSA
 
-|数据集|论文结果|MindSpore 结果|PyTorch 结果|
-|-----|----|:--------:|:---:|
-|rest15|85.32|83.76|85.42|
-|rest16|91.97|91.88|92.21|
+|数据集|MindSpore 结果|PyTorch 结果|
+|-----|:--------:|:---:|
+|rest15|83.76|85.42|
+|rest16|91.88|92.21|
 
 #### Scon_ABSA
 
-|数据集|论文结果|MindSpore 结果|PyTorch 结果|
-|-----|----|:--------:|:----:|
-|rest15|85.42|84.50|84.32|
-|rest16|92.53|92.37|91.56|
+|数据集|MindSpore 结果|PyTorch 结果|
+|-----|:--------:|:----:|
+|rest15|84.50|84.32|
+|rest16|92.37|91.56|
+
+#### ASGCN_ABSA
+
+|数据集|MindSpore 结果|PyTorch 结果|
+|-----|:--------:|:----:|
+|rest15|79.15|79.89|
+|rest16|89.45|88.99|
 
 *Note: MindSpore 与 PyTorch 均为 V100 下的测试结果。由于训练集较小，精度受随机种子等参数影响较大，可能出现精度无法完全对齐的情况。经讨论，各方一致认为以上结果均在合理范围之内。*
 
@@ -181,6 +188,7 @@ PyTorch 框架训练时间（单位：s/epoch）：
 | [InterGCNBERT_ABSA](./InterGCNBERT_ABSA)|31.0|20.0|10.3|15.0|
 | [SenticBERT_ABSA](./SenticBERT_ABSA)|30.4|20.0|10.2|14.9|
 | [Scon_ABSA](./Scon_ABSA)|24.2|15.5|8.2|11.8|
+| [ASGCN_ABSA](./ASGCN_ABSA)|8.3|5.7|2.3|3.4|
 
 MindSpore 框架训练时间（单位：s/epoch）：
 
@@ -189,5 +197,7 @@ MindSpore 框架训练时间（单位：s/epoch）：
 | [InterGCNBERT_ABSA](./InterGCNBERT_ABSA)|45.2|29.0|15.0|21.6|
 | [SenticBERT_ABSA](./SenticBERT_ABSA)|44.7|28.9|15.0|21.5|
 | [Scon_ABSA](./Scon_ABSA)|44.3|28.5|14.7|21.4|
+| [ASGCN_ABSA](./ASGCN_ABSA)|4.1|2.1|0.9|1.5|
+
 
 *Note:以上结果均为 V100 下测试所得。其中 MindSpore 代码（Example 除外）尚未针对混合精度进行调优，训练速度仍有较大提升空间。*
