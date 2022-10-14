@@ -188,7 +188,7 @@ PyTorch 框架训练时间（单位：s/epoch）：
 | [InterGCNBERT_ABSA](./InterGCNBERT_ABSA)|31.0|20.0|10.3|15.0|
 | [SenticBERT_ABSA](./SenticBERT_ABSA)|30.4|20.0|10.2|14.9|
 | [Scon_ABSA](./Scon_ABSA)|24.2|15.5|8.2|11.8|
-| [ASGCN_ABSA](./ASGCN_ABSA)|8.3|5.7|2.3|3.4|
+| [ASGCN_ABSA](./ASGCN_ABSA)|4.1|2.1|0.9|1.5|
 
 MindSpore 框架训练时间（单位：s/epoch）：
 
@@ -197,7 +197,7 @@ MindSpore 框架训练时间（单位：s/epoch）：
 | [InterGCNBERT_ABSA](./InterGCNBERT_ABSA)|45.2|29.0|15.0|21.6|
 | [SenticBERT_ABSA](./SenticBERT_ABSA)|44.7|28.9|15.0|21.5|
 | [Scon_ABSA](./Scon_ABSA)|44.3|28.5|14.7|21.4|
-| [ASGCN_ABSA](./ASGCN_ABSA)|4.1|2.1|0.9|1.5|
+| [ASGCN_ABSA](./ASGCN_ABSA)|8.3|5.7|2.3|3.4|
 
 
 *Note:以上结果均为 V100 下测试所得。其中 MindSpore 代码（Example 除外）尚未针对混合精度进行调优，训练速度仍有较大提升空间。*
