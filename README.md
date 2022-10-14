@@ -13,7 +13,6 @@ OpenABSA 是一个以 ABSA（Aspect-Based Sentiment Analysis）算法为主的�
 - 目前算法包已支持 5 个 MindSpore 算法
 - 所有算法在 GPU 和 Ascend 平台正向推理精度均与 PyTorch 对齐
 - InterGCN_ABSA，SenticGCN_ABSA 和 Scon_ABSA 完成静态图迁移，且已在 GPU 上完成模型训练
-- AAGCN_ABSA 算法 PyTorch 源码缺失，待完善
 
 ## 关键特性
 
