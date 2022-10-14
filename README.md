@@ -171,7 +171,7 @@ save_ckpt_path  /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
 |rest15|85.42|84.50|84.32|
 |rest16|92.53|92.37|91.56|
 
-*Note: MindSpore 与 PyTorch 均为 V100 下的测试结果。由于训练集较小，精度受随机种子等参数影响较大，可能出现精度无法完全与论文结果对齐的情况。经讨论，各方一致认为以上结果均在合理范围之内。*
+*Note: MindSpore 与 PyTorch 均为 V100 下的测试结果。由于训练集较小，精度受随机种子等参数影响较大，可能出现精度无法完全对齐的情况。经讨论，各方一致认为以上结果均在合理范围之内。*
 
 ## 性能对比
 PyTorch 框架训练时间（单位：s/epoch）：
@@ -190,4 +190,4 @@ MindSpore 框架训练时间（单位：s/epoch）：
 | [SenticBERT_ABSA](./SenticBERT_ABSA)|44.7|28.9|15.0|21.5|
 | [Scon_ABSA](./Scon_ABSA)|44.3|28.5|14.7|21.4|
 
-*Note:以上结果均为 V100 下测试所得。其中 MindSpore 代码尚未针对混合精度进行调优，训练速度仍有较大提升空间。*
+*Note:以上结果均为 V100 下测试所得。其中 MindSpore 代码（Example 除外）尚未针对混合精度进行调优，训练速度仍有较大提升空间。*
