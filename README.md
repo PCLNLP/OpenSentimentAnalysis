@@ -148,7 +148,7 @@ save_ckpt_path  /model/checkpoints/InterGCNBERT_ABSA/rest16/best_eval.ckpt
 
 ### 训练
 
-以下为各算法的论文发表结果、MindSpore 训练结果及 PyTorch 源码训练结果对比（metric: Accuracy）:
+以下为各算法的 MindSpore 训练结果及 PyTorch 源码训练结果对比（metric: Accuracy）:
 
 #### InterGCNBERT_ABSA
 
