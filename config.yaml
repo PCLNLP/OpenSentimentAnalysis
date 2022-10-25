@@ -1,0 +1,16 @@
+kernel_num: 128
+num_layer: 2
+hidden_dim: 300
+embed_dim: 300
+post_dim: 30
+polarities_dim: 3
+dropout: 0.3
+input_columns:
+  - text_indices
+  - text_len
+  - aspect_indices
+  - dependency_graph
+  - fre_graph
+  - post_emb
+  - weight
+  - mask
