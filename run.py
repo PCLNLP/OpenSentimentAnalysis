@@ -1,6 +1,7 @@
 import argparse
 import importlib
 from pathlib import Path
+from BIGCN_ABSA.train import Vocab_post
 
 import mindspore
 from mindspore import context
